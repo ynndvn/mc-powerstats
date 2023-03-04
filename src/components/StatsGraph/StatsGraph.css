@@ -1,0 +1,9 @@
+div.card {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #282c34;
+  width: fit-content;
+  margin: 20px;
+  height: 500px;
+  width: 1000px;
+}

@@ -1,0 +1,10 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - 1359:1359
+    depends_on:
+      - mongo
+    volumes:
+      - /mnt/hdd/MC-PowerStats/app:/HDD:rw
