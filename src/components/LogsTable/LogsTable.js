@@ -2,6 +2,7 @@ import "./LogsTable.css";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import MaterialReactTable from "material-react-table";
+import { Title } from "../Title/Title";
 
 const p = (d) => `${d}`.padStart(2, "0");
 
@@ -48,6 +49,7 @@ export const LogsTable = (props) => {
 
   return (
     <>
+      <Title>Ouvertures de la porte</Title>
       {stats?.raw ? (
         <MaterialReactTable columns={columns} data={stats.raw} />
       ) : (

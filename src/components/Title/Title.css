@@ -1,0 +1,11 @@
+.titleParent {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 2rem;
+  color: white;
+}

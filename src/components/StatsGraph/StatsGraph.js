@@ -5,19 +5,18 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Title } from "../Title/Title";
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Filler
 );
@@ -61,5 +60,10 @@ export const StatsGraph = (props) => {
       ],
     });
   }, [stats]);
-  return <Line options={options} data={graphData} />;
+  return (
+    <>
+      <Title>Énergie stockée</Title>
+      <Line options={options} data={graphData} />;
+    </>
+  );
 };
