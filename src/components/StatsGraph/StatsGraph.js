@@ -46,7 +46,6 @@ export const StatsGraph = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(stats);
     setGraphData({
       labels: stats.map((log) =>
         log.date.replace("T", " ").replace("Z", "").slice(10, -4)

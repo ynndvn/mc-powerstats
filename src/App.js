@@ -1,12 +1,18 @@
 import "./App.css";
 import { Card } from "./components/Card/Card";
+import { LogsTable } from "./components/LogsTable/LogsTable";
 import { StatsGraph } from "./components/StatsGraph/StatsGraph";
 
 function App() {
   return (
-    <Card>
-      <StatsGraph/>
-    </Card>
+    <div className="root">
+      <Card>
+        <StatsGraph />
+      </Card>
+      <Card>
+        <LogsTable />
+      </Card>
+    </div>
   );
 }
 

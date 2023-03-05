@@ -2,6 +2,6 @@ div.card {
   padding: 20px;
   border-radius: 10px;
   background-color: #282c34;
-  width: fit-content;
+  width: 80%;
   margin: 20px
 }
