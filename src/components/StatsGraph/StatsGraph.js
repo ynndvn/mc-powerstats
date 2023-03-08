@@ -10,7 +10,6 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Title } from "../Title/Title";
 ChartJS.register(
   CategoryScale,
@@ -33,16 +32,10 @@ export const StatsGraph = (props) => {
   const [stats, setStats] = useState([]);
   const [graphData, setGraphData] = useState({ datasets: [] });
   useEffect(() => {
-    const fun = async () => {
-      const headers = new Headers();
-      headers.set("Content-Type", "application/json");
-      const { data } = await axios.get("https://mc.ydav.in/power-stats");
-      const maxElementsApprox = 150;
-      const modulo = Math.floor(data.length / maxElementsApprox);
-      setStats(data.filter((_d, i) => i % modulo === 0));
-    };
-    fun();
-  }, []);
+    const maxElementsApprox = 150;
+    const modulo = Math.floor(props.data.length / maxElementsApprox);
+    setStats(props.data.filter((_d, i) => i % modulo === 0));
+  }, [props.data]);
 
   useEffect(() => {
     setGraphData({

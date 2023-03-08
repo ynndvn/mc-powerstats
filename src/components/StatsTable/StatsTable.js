@@ -13,7 +13,6 @@ const format = (d) => {
   const h = d.getHours();
   const m = d.getMinutes();
   const s = d.getSeconds();
-  console.log(`${y}-${p(mm)}-${p(day)} ${p(h)}:${p(m)}:${p(s)}`);
 
   return `${y}-${p(mm)}-${p(day)} ${p(h)}:${p(m)}:${p(s)}`;
 };
