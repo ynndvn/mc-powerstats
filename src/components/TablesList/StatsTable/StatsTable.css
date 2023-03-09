@@ -1,0 +1,9 @@
+div.reactor-table {
+  display: flex;
+  flex-direction: column;
+}
+
+div.spinner {
+  align-self: center;
+  justify-self: center;
+}

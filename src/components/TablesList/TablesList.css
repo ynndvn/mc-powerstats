@@ -1,0 +1,5 @@
+div.tables-list {
+  display: flex;
+  flex-direction: row;
+  gap: 20;
+}

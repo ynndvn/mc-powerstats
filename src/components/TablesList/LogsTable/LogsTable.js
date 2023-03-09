@@ -2,7 +2,7 @@ import "./LogsTable.css";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import MaterialReactTable from "material-react-table";
-import { Title } from "../Title/Title";
+import { Title } from "../../Title/Title";
 
 const p = (d) => `${d}`.padStart(2, "0");
 
@@ -42,19 +42,19 @@ export const LogsTable = (props) => {
       const headers = new Headers();
       headers.set("Content-Type", "application/json");
       const { data } = await axios.get("https://mc.ydav.in/logs");
-      setStats(data);
+      setStats(data.raw.filter(d => d.player !== "Degarni").slice(0, 500));
     };
     fun();
   }, []);
 
   return (
-    <>
+    <div className="table">
       <Title>Ouvertures de la porte</Title>
-      {stats?.raw ? (
-        <MaterialReactTable columns={columns} data={stats.raw} />
+      {stats ? (
+        <MaterialReactTable columns={columns} data={stats} />
       ) : (
         <div>Chargement...</div>
       )}
-    </>
+    </div>
   );
 };

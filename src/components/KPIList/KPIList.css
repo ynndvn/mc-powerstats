@@ -1,0 +1,9 @@
+div.kpi-list {
+  display: flex;
+  flex-direction: row;
+  gap: 20;
+}
+
+.kpi-card {
+  width: 200px;
+}

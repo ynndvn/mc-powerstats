@@ -2,7 +2,8 @@ import "./StatsTable.css";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import MaterialReactTable from "material-react-table";
-import { Title } from "../Title/Title";
+import { Title } from "../../Title/Title";
+import { SyncLoader } from "react-spinners";
 
 const p = (d) => `${d}`.padStart(2, "0");
 
@@ -44,6 +45,9 @@ export const StatsTable = (props) => {
       const stats = [];
       let currentOutage = null;
       for (const line of data) {
+        if (stats.length === 500) {
+          break;
+        }
         if (line.amount !== 256_000_000) {
           if (!currentOutage) {
             currentOutage = { start: new Date(line.date) };
@@ -68,13 +72,15 @@ export const StatsTable = (props) => {
   }, []);
 
   return (
-    <>
+    <div className="reactor-table">
       <Title>Allumages des réacteurs</Title>
       {stats?.length ? (
         <MaterialReactTable columns={columns} data={stats} />
       ) : (
-        <div>Chargement...</div>
+        <div className="spinner">
+          <SyncLoader color="#36d7b7" />
+        </div>
       )}
-    </>
+    </div>
   );
 };
