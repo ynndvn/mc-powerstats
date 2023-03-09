@@ -1,4 +1,4 @@
-import "./StatsGraph.css";
+import "./UraniumGraph.css";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,24 +22,17 @@ ChartJS.register(
 );
 export const options = {
   responsive: true,
-  scales: {
-    y: {
-      min: 0,
-    },
-  },
 };
 
-export const StatsGraph = (props) => {
+export const UraniumGraph = (props) => {
   const [stats, setStats] = useState([]);
   const [graphData, setGraphData] = useState({ datasets: [] });
   useEffect(() => {
     const fun = async () => {
       const headers = new Headers();
       headers.set("Content-Type", "application/json");
-      const { data } = await axios.get("https://mc.ydav.in/power-stats");
-      const maxElementsApprox = 150;
-      const modulo = Math.floor(data.length / maxElementsApprox);
-      setStats(data.filter((_d, i) => i % modulo === 0));
+      const { data } = await axios.get("https://mc.ydav.in/uranium");
+      setStats(data);
     };
     fun();
   }, []);
@@ -62,7 +55,7 @@ export const StatsGraph = (props) => {
   }, [stats]);
   return (
     <>
-      <Title>Énergie stockée</Title>
+      <Title>Uranium</Title>
       <Line options={options} data={graphData} />;
     </>
   );

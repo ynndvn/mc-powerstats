@@ -1,38 +1,44 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { Card } from "./components/Card/Card";
 import { LogsTable } from "./components/LogsTable/LogsTable";
 import { StatsGraph } from "./components/StatsGraph/StatsGraph";
 import { StatsKPI } from "./components/StatsKPI/StatsKPI";
 import { StatsTable } from "./components/StatsTable/StatsTable";
+import { UraniumGraph } from "./components/UraniumGraph/UraniumGraph";
+import { UraniumKPI } from "./components/UraniumKPI/UraniumKPI";
 
 function App() {
-  const [showGraph, setShowGraph] = useState(false);
+  const [showStatsGraph, setShowStatsGraph] = useState(false);
+  const [showUraniumGraph, setShowUraniumGraph] = useState(false);
 
-  const [stats, setStats] = useState([]);
-  useEffect(() => {
-    const fun = async () => {
-      const headers = new Headers();
-      headers.set("Content-Type", "application/json");
-      const { data } = await axios.get("https://mc.ydav.in/power-stats");
-      setStats(data);
-    };
-    fun();
-  }, []);
   return (
     <div className="root">
       <Card>
-        <StatsKPI showGraph={showGraph} setShowGraph={setShowGraph} data={stats}></StatsKPI>
+        <StatsKPI
+          showGraph={showStatsGraph}
+          setShowGraph={setShowStatsGraph}
+        ></StatsKPI>
       </Card>
-      {showGraph && stats.length ? (
+      {showStatsGraph ? (
         <Card>
-          <StatsGraph data={stats} />
+          <StatsGraph />
         </Card>
       ) : null}
       <Card>
         <StatsTable />
       </Card>
+      <Card>
+        <UraniumKPI
+          showGraph={showUraniumGraph}
+          setShowGraph={setShowUraniumGraph}
+        ></UraniumKPI>
+      </Card>
+      {showUraniumGraph ? (
+        <Card>
+          <UraniumGraph />
+        </Card>
+      ) : null}
       <Card>
         <LogsTable />
       </Card>
