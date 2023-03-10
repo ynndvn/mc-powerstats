@@ -45,9 +45,6 @@ export const StatsTable = (props) => {
       const stats = [];
       let currentOutage = null;
       for (const line of data) {
-        if (stats.length === 500) {
-          break;
-        }
         if (line.amount !== 256_000_000) {
           if (!currentOutage) {
             currentOutage = { start: new Date(line.date) };
