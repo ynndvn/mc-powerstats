@@ -29,7 +29,19 @@ export const StockBox = (props) => {
       {type ? (
         <>
           <Title>
-            {type} :{" "}
+            {
+              <FormControl size="small">
+                <Select
+                  value={type}
+                  onChange={(evt) => setType(evt.target.value)}
+                >
+                  {types.map((t) => (
+                    <MenuItem value={t}>{t}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            }{" "}
+            :{" "}
             {pretty ?? (
               <div className="spinner">
                 <SyncLoader color="#36d7b7" />
@@ -39,13 +51,7 @@ export const StockBox = (props) => {
           <Button variant="contained" onClick={openModal}>
             {props.showGraph ? "Cacher" : "Afficher"} le graphique
           </Button>
-          <FormControl size="small">
-            <Select value={type} onChange={(evt) => setType(evt.target.value)}>
-              {types.map((t) => (
-                <MenuItem value={t}>{t}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+
           <ReactModal
             style={{
               overlay: { zIndex: 1 },
