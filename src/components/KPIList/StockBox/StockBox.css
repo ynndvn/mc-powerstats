@@ -1,0 +1,11 @@
+div.kpi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.MuiInputBase-root {
+  margin-top: 10px;
+}
+.MuiInputBase-root > div {
+  background-color: white;
+}

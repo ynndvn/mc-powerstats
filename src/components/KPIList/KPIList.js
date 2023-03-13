@@ -1,6 +1,9 @@
 import "./KPIList.css";
 import { KPIBox } from "./KPIBox/KPIBox";
 import { Card } from "../Card/Card";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { StockBox } from "./StockBox/StockBox";
 const powerStatsConfig = {
   formatter: (data) => {
     const raw = data?.amount;
@@ -29,8 +32,27 @@ const powerStatsConfig = {
 };
 
 const uraniumConfig = {
-  formatter: (data) => data?.amount,
-  dataFormatter: powerStatsConfig.dataFormatter,
+  formatter: (data) =>
+    Object.keys(data ?? {}).reduce(
+      (acc, curr) => ({ ...acc, [curr]: data[curr].amount }),
+      {}
+    ),
+  dataFormatter: (data) => {
+    const maxElementsApprox = 150;
+    return Object.keys(data ?? {}).reduce(
+      (acc, curr) => ({
+        ...acc,
+        [curr]:
+          data[curr].length > maxElementsApprox
+            ? data[curr].filter(
+                (d, i) =>
+                  i % Math.floor(data[curr].length / maxElementsApprox) === 0
+              )
+            : data[curr],
+      }),
+      {}
+    );
+  },
   graphOptions: {
     responsive: true,
     maintainAspectRatio: false,
@@ -38,6 +60,26 @@ const uraniumConfig = {
 };
 
 export const KPIList = (props) => {
+  const [currentStocks, setCurrentStocks] = useState([]);
+  const [stocksEvolution, setStocksEvolution] = useState([]);
+  useEffect(() => {
+    const fun = async () => {
+      const headers = new Headers();
+      headers.set("Content-Type", "application/json");
+      const currentResult = await axios.get(
+        "https://mc.ydav.in/stocks/current"
+      );
+      const formatted = uraniumConfig.formatter(currentResult.data);
+      setCurrentStocks(formatted);
+      const evolutionResult = await axios.get("https://mc.ydav.in/stocks");
+
+      const formattedEvolution = uraniumConfig.dataFormatter(
+        evolutionResult.data
+      );
+      setStocksEvolution(formattedEvolution);
+    };
+    fun();
+  }, []);
   return (
     <div className="kpi-list">
       <Card width="500px">
@@ -51,12 +93,9 @@ export const KPIList = (props) => {
         />
       </Card>
       <Card width="500px">
-        <KPIBox
-          url="https://mc.ydav.in/uranium/current"
-          formatter={uraniumConfig.formatter}
-          dataUrl="https://mc.ydav.in/uranium"
-          dataFormatter={uraniumConfig.dataFormatter}
-          label="Uranium"
+        <StockBox
+          currents={currentStocks}
+          evolutions={stocksEvolution}
           graphOptions={uraniumConfig.graphOptions}
         />
       </Card>
